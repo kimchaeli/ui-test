@@ -15,6 +15,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavHostController
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.composedemo.ui.theme.ComposeDemoTheme
 import kotlinx.coroutines.delay
@@ -27,8 +29,13 @@ class MainActivity : ComponentActivity() {
                 // 네비게이션 컨트롤러 생성
                 val navController = rememberNavController()
 
-                // SplashScreen에서 MainScreen으로 전환하는 로직
-                SplashScreenToMainScreen(navController)
+                // NavHost 설정
+                NavHost(navController = navController, startDestination = "splashScreen") {
+                    composable("splashScreen") { SplashScreenToMainScreen(navController) }
+                    // "bottomNav" 목적지 추가
+                    composable("bottomNav") { /* 운전자 모드 스크린 컴포저블 */ }
+                    // 추가적인 목적지는 여기에 정의할 수 있습니다.
+                }
             }
         }
     }
